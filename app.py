@@ -6,9 +6,10 @@ from PIL import Image
 from dotenv import load_dotenv
 import utils
 
-# checking the code nj
+# Load environment variables
 load_dotenv()
 
+# Load JSON data
 try:
     with open('assets/data.json') as file:
         my_info = json.load(file)
@@ -16,6 +17,7 @@ except FileNotFoundError:
     st.error("JSON file not found.")
     my_info = {}
 
+# Load PDF data
 try:
     with open('assets/nj_resume.pdf', 'rb') as file:
         pdf_data = file.read()
@@ -41,9 +43,9 @@ st.set_page_config(page_title='Nithin Jashua', page_icon='🙌', layout='wide')
 css = """
 <style>
 body {
-    background: #2e2e30;
+    background: #FFFFFF; /* Changed background color to pure white */
     font-family: 'Quicksand', sans-serif;
-    color: white;
+    color: black; /* Changed text color to black for better contrast */
 }
 
 .container {
@@ -73,7 +75,7 @@ body {
     width: 100%;
     height: 100%;
 }
-# updated
+
 .pulse {
     width: 250px; /* Match avatar size */
     height: 270px; /* Match avatar size */
@@ -94,16 +96,16 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-transform: uppercase;
-    color: white;
+    color: black; /* Changed text color to black */
     background: rgba(0,150,136,0.2);
     border: solid 2px #00796B;
     padding: 5px 10px;
     opacity: 0;
     transition: opacity 0.5s;
 }
-# chanve
+
 .info {
-    color: white;
+    color: black; /* Changed text color to black */
     text-transform: uppercase;
     position: fixed;
     right: 10px;
@@ -160,7 +162,7 @@ button {
 
 button:hover {
     background-color: skyblue;
-    color: #2e2e30;
+    color: #FFFFFF; /* Changed text color to white for contrast */
 }
 </style>
 """
@@ -284,30 +286,4 @@ for project in projects:
         with text_col:
             st.subheader(project['title'])
             st.write(project['description'])
-            st.markdown(f"[View Project]({project['link']})")
-
-st.write('---')
-st.header('Get in touch with me...')
-
-# Contact form and animation side-by-side
-contact_left, contact_right = st.columns([2, 3])
-
-with contact_left:
-    contact_form = '''
-    <form method="POST">
-        <input type="text" name="name" placeholder="Your name" required>
-        <input type="email" name="email" placeholder="Your email" required>
-        <textarea name="message" placeholder="Your message" rows="4" required></textarea>
-        <button type="submit">Send Message</button>
-    </form>
-    '''
-    st.markdown(contact_form, unsafe_allow_html=True)
-
-with contact_right:
-    st_lottie(
-        utils.load_data_from_url(lottie_getintouch),
-        height=300,
-        key='getintouch'
-    )
-
-st.write('---')
+            st.write(f"[Click here to view the project]({project['link']})")
